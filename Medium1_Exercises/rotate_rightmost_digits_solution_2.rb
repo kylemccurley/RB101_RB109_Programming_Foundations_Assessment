@@ -22,10 +22,6 @@ You may assume that n is always a positive integer.
   Mental Model:
     Write a method that takes a number and n digits to be rotated, and returns a
     new number with n digits rotated (n digits passed into rotate_array method)
-
-  Algorithm:
-    Given a number and n digits:
-      -
 =end
 
 

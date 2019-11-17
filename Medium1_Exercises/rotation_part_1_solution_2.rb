@@ -43,3 +43,5 @@ p rotate_array(['a']) == ['a']
 x = [1, 2, 3, 4]
 rotate_array(x) == [2, 3, 4, 1]   # => true
 x == [1, 2, 3, 4]                 # => true
+
+#Time: 17 Minutes

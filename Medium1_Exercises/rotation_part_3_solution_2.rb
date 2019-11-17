@@ -5,9 +5,6 @@ Write a method that takes an integer as argument, and returns the maximum rotati
 
 Note that you do not have to handle multiple 0s.
 =end
-=begin
-
-=end
 
 def rotate_array(arr)
   arr[1..-1] + [arr[0]]
@@ -34,3 +31,5 @@ max_rotation(3) == 3
 max_rotation(35) == 53
 max_rotation(105) == 15 # the leading zero gets dropped
 max_rotation(8_703_529_146) == 7_321_609_845
+
+#Time: 13 Minutes

@@ -24,7 +24,7 @@ that it computes its results without recursion.
 def fibonacci(num)
   first = 1
   last = 1
-  
+
   3.upto(num) do
     first, last = [last, first + last]
   end
@@ -35,3 +35,5 @@ end
 p fibonacci(20) == 6765
 p fibonacci(100) == 354224848179261915075
 p fibonacci(100_001) # => 4202692702.....8285979669707537501
+
+#Time: 12 Minutes
