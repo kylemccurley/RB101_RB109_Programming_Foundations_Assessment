@@ -29,10 +29,6 @@ Rewrite your recursive fibonacci method so that it computes its results without 
   Data Structure:
     - integers
     - strings
-
-  Algorithm:
-    Given an integer: int
-      -
 =end
 
 def fibonacci(n)

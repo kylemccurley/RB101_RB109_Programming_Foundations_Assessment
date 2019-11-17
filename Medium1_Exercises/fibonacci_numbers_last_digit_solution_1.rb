@@ -7,10 +7,10 @@ In this exercise, you are going to compute a method that
 returns the last digit of the nth Fibonacci number.
 =end
 
-def fibonacci_last(big_num)
+def fibonacci_last(num)
   outcome = [0, 1]
   59.times { outcome << outcome.slice(-2, 2).sum % 10 }
-  outcome[big_num % 60]
+  outcome[num % 60]
 end
 
 p fibonacci_last(15)        # -> 0  (the 15th Fibonacci number is 610)
