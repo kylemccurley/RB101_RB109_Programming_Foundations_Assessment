@@ -44,10 +44,11 @@ def lights(number)
     for num in (counter..number)
       outcome << num if num % counter == 0
     end
-    on_arr.each{ |elem| on_arr.delete(elem) if on_arr.count(elem) > 1 }
+
+    outcome.each{ |elem| on_arr.delete(elem) if outcome.count(elem) > 1 }
   end
 
-  on_arr.sort
+  outcome.sort
 end
 
 #Time: 16 Minutes
