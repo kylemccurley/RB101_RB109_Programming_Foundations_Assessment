@@ -45,7 +45,7 @@ WORD_TO_DIGIT = { 'one' => '1', 'two' => '2', 'three' => '3',
                  }
 
 def word_to_digit(sentence)
-  words = sentence.split
+  words = sentence.split('')
   words.each { |word| word.gsub!(/[[:punct:]]/, '')}
 
   words.map! do |word|
