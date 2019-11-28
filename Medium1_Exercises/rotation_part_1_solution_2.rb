@@ -23,17 +23,12 @@ Mental Model:
 
 Algorithm:
   Given an array: arr
-    - Initialize an empty array: outcome
-    - Iterate through each element of arr with index: element, index
-      - Append the element to outcome if the index is above 0
-    - Append the element at index 0 to outcome
+    - Reference elements from index 1 to -1
+    - Reference elements from index 0
 =end
 
 def rotate_array(arr)
-  outcome = []
-  arr.each_with_index { |element, index| outcome << element if index > 0 }
-  outcome << arr[0]
-  outcome
+  arr[1..-1] + arr[0]
 end
 
 p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
@@ -44,4 +39,4 @@ x = [1, 2, 3, 4]
 rotate_array(x) == [2, 3, 4, 1]   # => true
 x == [1, 2, 3, 4]                 # => true
 
-#Time: 17 Minutes
+#Time: 3 Minutes

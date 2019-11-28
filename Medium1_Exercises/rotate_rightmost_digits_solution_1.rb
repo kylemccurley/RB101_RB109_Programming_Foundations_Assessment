@@ -6,40 +6,41 @@ You may use the rotate_array method from the previous exercise if you want. (Rec
 You may assume that n is always a positive integer.
 =end
 =begin
-  Input: Number, n digits
-  Output: Rotated number
+  Input: 2x Integers
+  Output: New Rotated Number
 
-  Explicit Requirements:
-    - You may assume that n is always a positive Integer
-    - You may use the rotate_array method from the previous exercise
-    - Rotating just 1 digit results in the original number being returned.
-
-  Implicit Rules:
-    - Convert number into a type that can compare digits
-    - Return a new number
-
+  Explicit Rules:
+    - You may assume that n is always a positive integer
+    - You may use the rotate_array method from previous exercise
+  
   Data Structure:
-    - Integer
     - Arrays
+    - Integers
     - Strings
 
-  Algorithm:
-    Given a digit and n numbers: number, n
-      - Convert the number into a string, call String#chars
-       - Number_Chars
-      - Pass in the array of [-n to -1] to rotate_array.
-        - Assign to a local variable.
-      - Join the array (String) and convert to an integer (String#to_i).
+  Mental Model:
+    Write a method that takes 2 integers and returns a new number 
+    with the n-most digits rotated.
+  
+  Algorithm: Given 2x integers: number, digits
+    - Convert number to a string:
+      - Store as a local variable: num_chars
+    - Pass the digits from -digits to -1:
+      - To rotate_array method
+        - Store as local variable: rotated_digits
+    - Add characters from 0 to (digits + 1)
+      - Add to rotated_digits local variable
+    - Convert rotated_digits to an integer (String#to_i)
 =end
 
-def rotate_array(arr)
-  arr[1..-1] + [arr[0]]
+def rotate_array(string)
+  string[1..-1] + string[0]
 end
 
-def rotate_rightmost_digits(number, n)
-  num_chars = number.to_s.chars
-  num_chars[-n..-1] = rotate_array(num_chars[-n..-1])
-  num_chars.join.to_i
+def rotate_rightmost_digits(number, digits)
+  num_chars = number.to_s
+  rotated_chars =  num_chars[0..-(digits + 1)] + rotate_array(num_chars[-digits..-1])
+  rotated_chars.to_i
 end
 
 p rotate_rightmost_digits(735291, 1) == 735291
@@ -49,4 +50,4 @@ p rotate_rightmost_digits(735291, 4) == 732915
 p rotate_rightmost_digits(735291, 5) == 752913
 p rotate_rightmost_digits(735291, 6) == 352917
 
-#Time: 13 Minutes
+#Time: 12 Minutes, 42 Seconds

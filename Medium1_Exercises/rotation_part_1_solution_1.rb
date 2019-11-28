@@ -4,31 +4,32 @@ Write a method that rotates an array by moving the first element to the end of t
 Do not use the method Array#rotate or Array#rotate! for your implementation.
 =end
 =begin
-  Input: array
-  Output: New Rotated Array (First number moved to the end)
+  Input: Array
+  Output: New Rotated Array (First element moved to the end)
 
-  Explicit Requirements:
-    - Do not use the method Array#rotate or Array#rotate! for your implementation.
-    - The original array should not be modified
-    - Move the first element to the end of the array
-
-  Data Structure;
+  Explicit Rules:
+    - Do not use the Array#rotate or Array#rotate! method
+  
+  Data Structures:
     - Arrays
-    - Integers
     - Strings
-
-  Mental Model:
-    Write a method that takes an array of elements (Integers or Strings), and returns
-    a new array with the first element moved to the end.
-
+    - Integers
+  
   Algorithm:
-    Given an array: arr
-      - Add the elements from index 1 to -1
-      - Add the element at index 0.
+    Given an array of elements: arr
+      - Initialize an empty array: outcome
+      - Iterate through each element and index of arr: Array#each_with_index
+        - Unless the index is 0
+          - Append the element to outcome array
+      - Append the element at index 0
+      - Return the outcome array
 =end
 
 def rotate_array(arr)
-  arr[1..-1] + [arr[0]]
+  outcome = []
+  arr.each_with_index { |el, idx| outcome << el unless idx == 0 }
+  outcome << arr[0]
+  outcome
 end
 
 p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
@@ -36,7 +37,7 @@ p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
 p rotate_array(['a']) == ['a']
 
 x = [1, 2, 3, 4]
-rotate_array(x) == [2, 3, 4, 1]   # => true
+p rotate_array(x) == [2, 3, 4, 1]   # => true
 x == [1, 2, 3, 4]                 # => true
 
-#Time: 15 Minutes
+#Time: 6 minutes, 31 seconds

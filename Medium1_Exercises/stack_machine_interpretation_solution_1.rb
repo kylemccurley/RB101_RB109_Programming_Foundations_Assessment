@@ -1,97 +1,79 @@
 =begin
-A stack is a list of values that grows and shrinks dynamically. In ruby, a stack is easily implemented as an Array that just uses the #push and #pop methods.
-
-A stack-and-register programming language is a language that uses a stack of values. Each operation in the language operates on a register, which can be thought of as the current value. The register is not part of the stack. Operations that require two values pop the topmost item from the stack (that is, the operation removes the most recently pushed value from the stack), perform the operation using the popped value and the register value, and then store the result back in the register.
-
-Consider a MULT operation in a stack-and-register language. It multiplies the stack value with the register value, removes the value from the stack, and then stores the result back in the register. Thus, if we start with a stack of 3 6 4 (where 4 is the topmost item in the stack), and a register value of 7, then the MULT operation will transform things to 3 6 on the stack (the 4 is removed), and the result of the multiplication, 28, is left in the register. If we do another MULT at this point, then the stack is transformed to 3, and the register is left with the value 168.
-
-Write a method that implements a miniature stack-and-register-based programming language that has the following commands:
-
-n Place a value n in the "register". Do not modify the stack.
-PUSH Push the register value on to the stack. Leave the value in the register.
-ADD Pops a value from the stack and adds it to the register value, storing the result in the register.
-SUB Pops a value from the stack and subtracts it from the register value, storing the result in the register.
-MULT Pops a value from the stack and multiplies it by the register value, storing the result in the register.
-DIV Pops a value from the stack and divides it into the register value, storing the integer result in the register.
-MOD Pops a value from the stack and divides it into the register value, storing the integer remainder of the division in the register.
-POP Remove the topmost item from the stack and place in register
-PRINT Print the register value
 All operations are integer operations (which is only important with DIV and MOD).
 
-Programs will be supplied to your language method via a string passed in as an argument. Your program may assume that all programs are correct programs; that is, they won't do anything like try to pop a non-existent value from the stack, and they won't contain unknown tokens.
+Programs will be supplied to your language method via a string passed in as an argument.
+ Your program may assume that all programs are correct programs; that is, they won't do anything like try to pop a non-existent value from the stack, and they won't contain unknown tokens.
 
 You should initialize the register to 0.
 =end
 =begin
-  Input: String of Integer Operations
-  Output: Integer
+  Input: String of Operations
+  Output: Integer (Stack Output)
 
-  Explicit Requirements:
-    - You should initialize the register to 0.
-    - All programs are valid programs
+  Explicit Rules:
+    - You should initialize the register to 0
     - All operations are integer operations
-    - Do not modify the stack
-
+    - May assume all programs are correct programs
+  
   Implicit Requirements:
-    - Need to keep track of the register
-
+    - Will need to store values in register if there isn't a specified argument
+  
   Data Structure:
     - Strings
-    - Arrays
     - Integers
-
+    - Arrays
+  
   Mental Model:
-    Write a method that takes a string as an argument and returns an Integer
-    based on the stack programs performed.
-
-  Algorithm:
-    Given an operation string: commands
-      - Initialize an empty array: stack
-      - Initialize a local variable: register
-      - Split the commands string using spaces, iterate through each element: word
-        - If the word is 'PUSH'
-          - Append the register to the stack
-        - If the word is 'ADD'
-          - Add the return value of Array#POP
-        - If the word is 'SUB'
-          - Subtract the Array#pop from the register
-        - If the word is 'MULT'
-          - Subtract the Array#pop return value with the register
-        - If the word is 'DIV'
-          - Assign the register to the register divided by the stack pop
-        - If the word is 'MOD'
-          - Reassign the register to the stack.pop multiplyed by itself
-        - If the word is 'POP'
-          - Assign the register to the Array#POP
-        - If the word is 'PRINT"
-          - Print the register local variable using Kernel#puts
-        - Otherwise:
-          - Assign the register to the word converted to an integer
+    Write a method that takes a string as an argument
+    and returns an integer based on the outcome of the stack operations.
+  
+  Algorithm: Given a string of operations: operations
+    - Initialize a local variable: stack
+      - Set as an empty array
+    - Initialize a local variable: register
+      - Set to 0
+    - Split operations into an array, iterate: |token|
+      - If the token is 'PUSH':
+        - Append the register to the stack
+      - If the token is ADD:
+        - Pop value from stack (Array#pop), add it to the register
+      - If the token is SUB:
+        - Pop the value from stack (Array#pop), subtract from register
+      - If the token is MULT
+        - Pop the value from stack (Array#pop), subtract from register
+      - If the token is DIV
+        - Pop the value from stack (Array#pop), divide from register
+      - If the token is MOD
+        - Pop value from stack (Array#pop), perform modulo and apply to register (register %= stack.pop)
+      - If the token is POP:
+        - Set the register as the popped value from stack
+      - If the token is PRINT:
+        - Pass the register value into Kernel#puts
+      - Otherwise:
+        - Set the token to the register
+          - Convert the token to an integer
 =end
 
-def minilang(string)
+def minilang(operations)
   stack = []
   register = 0
-
-  string.split.each do |word|
-    if word == 'PUSH'
-      stack << register
-    elsif word == 'ADD'
+  operations.split(' ').each do |op|
+    if op == 'PUSH'
+      stack.push(op.to_i)
+    elsif op == 'ADD'
       register += stack.pop
-    elsif word == 'SUB'
+    elsif op == 'SUB'
       register -= stack.pop
-    elsif word == 'MULT'
+    elsif op == 'MULT'
       register *= stack.pop
-    elsif word == 'DIV'
-      register = register / stack.pop
-    elsif word == 'MOD'
+    elsif op == 'DIV'
+      register /= stack.pop
+    elsif op == 'MOD'
       register %= stack.pop
-    elsif word == 'POP'
+    elsif op == 'POP'
       register = stack.pop
-    elsif word == 'PRINT'
-      puts register
     else
-      register = word.to_i
+      register = op.to_i
     end
   end
 end
@@ -127,5 +109,3 @@ minilang('-3 PUSH 5 SUB PRINT')
 
 minilang('6 PUSH')
 # (nothing printed; no PRINT commands)
-
-#Time: 16 Minutes

@@ -6,34 +6,49 @@ You may use the rotate_array method from the previous exercise if you want. (Rec
 You may assume that n is always a positive integer.
 =end
 =begin
-  Input: Number, n
-  Output: New Rotated Number
+  Input: 2x Integers (Number, Digits)
+  Output: 
 
   Explicit Rules:
-    - You may assume that n is always a positive Integer
-    - You may use the rotate_array method from the previous exercise
-    - Rotating 1 digit results in the original number being returned.
-
+    - You may assume that n is always a positive number
+    - You may use the rotate_array method
+  
   Data Structure:
-    - Integer
     - Strings
     - Arrays
-
+    - Integers
+  
   Mental Model:
-    Write a method that takes a number and n digits to be rotated, and returns a
-    new number with n digits rotated (n digits passed into rotate_array method)
+    Write a method that takes 2 integers, number and digits, and 
+    returns a new number with the n-th most digits rotated.
+
+  Algorithm:
+    Given 2x Integers: number, digits
+      - Initialize a local variable: num
+        - Set as number
+      - Bring 10 to the power of digits.
+        - Store as a local variable: place
+      - Pass the digits of num % place to rotate_array
+        - Converted into a string
+          - Store as a local variable: rotated_digits
+      - Add rotated_digits to:
+        - num / place
+          - Converted to a string
+            - Store as a local variable: outcome_chars
+      - Return outcome_chars:
+        - Converted to an integer
 =end
 
-
-
 def rotate_array(arr)
-  arr[1..-1] + [arr[0]]
+  arr[1..-1] + arr[0]
 end
 
-def rotate_rightmost_digits(number, n)
-  num_chars = number.digits.reverse
-  rotated_num = num_chars[0..-(n + 1)] + rotate_array(num_chars[-n..-1])
-  rotated_num.join.to_i
+def rotate_rightmost_digits(number, digits)
+  num = number
+  places = 10**digits
+  rotated_digits = rotate_array((num % places).to_s)
+  outcome_chars = (num / places).to_s + rotated_digits
+  p outcome_chars.to_i
 end
 
 p rotate_rightmost_digits(735291, 1) == 735291
@@ -43,4 +58,4 @@ p rotate_rightmost_digits(735291, 4) == 732915
 p rotate_rightmost_digits(735291, 5) == 752913
 p rotate_rightmost_digits(735291, 6) == 352917
 
-#Time: 19 Minutes
+#Time: 16 Minutes, 50 Seconds
