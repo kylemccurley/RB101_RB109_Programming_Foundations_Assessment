@@ -5,6 +5,30 @@ Write a method that takes an integer as argument, and returns the maximum rotati
 
 Note that you do not have to handle multiple 0s.
 =end
+=begin
+  Input: Integer (Number)
+  Output: New Rotated number
+
+  Explicit Rules:
+    - Do not have to handle multiple zeros
+    - You can use the rotate_rightmost_digits method from previous exercise
+
+  Data Structure:
+    - Array
+    - Integers
+    - strings
+
+  Mental Model:
+    Write a method that takes a number and returns a new number with the digits rotated
+    to the maximum_rotation
+
+  Algorithm: Given a number: num
+    - Initialize a counter to the size of num
+    - Enter into a loop: while count is greater than 2
+      - Reassign num to the output of rotate_rightmost_digits
+        - Pass in counter to the method.
+    - Return num
+=end
 
 def rotate_array(arr)
   arr[1..-1] + [arr[0]]
@@ -17,13 +41,12 @@ def rotate_rightmost_digits(number, n)
 end
 
 def max_rotation(number)
-  num_of_digits = number.to_s.length
-  output = number
-  until num_of_digits <= 1
-    new_num = rotate_rightmost_digits(new_num, num_of_digits)
-    num_of_digits -= 1
+  counter = number.to_s.size
+  while counter > 2 do
+    number = rotate_rightmost_digits(number, counter)
+    counter -= 1
   end
-  new_num
+  number
 end
 
 max_rotation(735291) == 321579

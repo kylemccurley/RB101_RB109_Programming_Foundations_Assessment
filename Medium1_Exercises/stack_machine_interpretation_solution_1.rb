@@ -14,19 +14,19 @@ You should initialize the register to 0.
     - You should initialize the register to 0
     - All operations are integer operations
     - May assume all programs are correct programs
-  
+
   Implicit Requirements:
     - Will need to store values in register if there isn't a specified argument
-  
+
   Data Structure:
     - Strings
     - Integers
     - Arrays
-  
+
   Mental Model:
     Write a method that takes a string as an argument
     and returns an integer based on the outcome of the stack operations.
-  
+
   Algorithm: Given a string of operations: operations
     - Initialize a local variable: stack
       - Set as an empty array
@@ -34,7 +34,7 @@ You should initialize the register to 0.
       - Set to 0
     - Split operations into an array, iterate: |token|
       - If the token is 'PUSH':
-        - Append the register to the stack
+        - Append the register value to the stack
       - If the token is ADD:
         - Pop value from stack (Array#pop), add it to the register
       - If the token is SUB:
@@ -55,12 +55,11 @@ You should initialize the register to 0.
 =end
 
 def minilang(operations)
-  stack = []
   register = 0
-  operations.split(' ').each do |op|
-    if op == 'PUSH'
-      stack.push(op.to_i)
-    elsif op == 'ADD'
+  stack = []
+
+  operations.split.each do |op|
+    if op == 'ADD'
       register += stack.pop
     elsif op == 'SUB'
       register -= stack.pop
@@ -72,6 +71,10 @@ def minilang(operations)
       register %= stack.pop
     elsif op == 'POP'
       register = stack.pop
+    elsif op == 'PUSH'
+      stack << register
+    elsif op == 'PRINT'
+      puts register
     else
       register = op.to_i
     end
@@ -109,3 +112,5 @@ minilang('-3 PUSH 5 SUB PRINT')
 
 minilang('6 PUSH')
 # (nothing printed; no PRINT commands)
+
+#Time: 19 Minutes

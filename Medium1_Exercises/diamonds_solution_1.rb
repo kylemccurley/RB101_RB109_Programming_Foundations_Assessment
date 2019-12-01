@@ -1,68 +1,52 @@
 =begin
-Write a method that displays a 4-pointed diamond in an n x n grid, where n is an
-odd integer that is supplied as an argument to the method.
-You may assume that the argument will always be an odd integer.
-=end
-=begin
-  Input: Odd Integer
-  Output: 4-Pointed Diamond
+  Input: Odd integer
+  Output: 4-Pointed Diamond (String)
 
-  Explicit Rules:
+  Explicit Requirements/Rules:
     - You may assume that the argument will always be an odd integer
-    - Displays a 4-pointed diamond in an n x n grid.
 
-  Implicit Rules:
-    - N determines the dimensions of the grid
+  Implicit Requirements:
+    - Will need to print diamond based on distance from center.
 
   Data Structure:
-    - Integers
-    - Strings
+    - Integers   - strings  - Arrays
 
   Mental Model:
-    Write a method that takes an n integer and Returns
-    a 4-pointed diamond in a nxn grid. The input
-    integer will always be an odd integer.
+    Write a method that takes an odd integer, and returns a string of a
+    4-pointed diamond. You may assume that the argument will always be an odd integer.
 
-  Algorithm:
-    Given an integer: n
-
-      Print_Row Method:
-        Given the grid_size and distance_from_center
-===================================================
-          - Calculate the number of stars:
-            - Substract 2 from the grid_size and multiply by distnace_from_center
-          - Initialize a local variable: stars, as a string
-            - Multiply '*' by the number of stars in grid
-          - Print the stars string in the center of a string the size of grid_size
-
-      Grid_Size Method:
-===================================================
-       - Calculate the maximum distance from center: max_distance
-         - Subtract 1 from the grid_size and divide by 2
-       - Iterate from the max_distance down to 0:
-         - Pass these arguments into print_row:
-           - grid_size
-           - distance
-       - Iterate from 1 up to the maximum_distance:
-         - Pass in these following arguments into print_row:
-           - grid_size
-           - distance
+  Algorithm: Given an odd integer: n
+    - Initialize a local variable: max_distance
+      - Set to (n - 1) / 2
+    - Iterate from max_distance downto 1: |distance|
+      - Initialize a local variable: number_of_stars
+        - n - (2 * distance)
+      - Print '*' * number_of_stars
+        - Center using String#center
+    - Print '*' * n
+      - Center using String#center
+    - Iterate from 1 upto max_distance: |distance|
+      - Reassign local variable: number_of_stars
+        - n - (2 * distance)
+      - Print '*' times number_of_stars
+        - Center using String#center
 =end
 
-def print_row(grid_size, distance_from_center)
-  number_of_stars = grid_size - 2 * distance_from_center
-  stars = '*' * number_of_stars
-  puts stars.center(grid_size)
+def diamond(n)
+  max_distance = (n - 1) / 2
+  max_distance.downto(1) do |distance|
+    number_of_stars = n - (2 * distance)
+    puts ('*' * number_of_stars).center(n)
+  end
+
+  puts ('*' * n).center(n)
+
+  1.upto(max_distance) do |distance|
+    number_of_stars = n - (2 * distance)
+    puts ('*' * number_of_stars).center(n)
+  end
 end
 
-def diamond(grid_size)
-  max_distance = (grid_size - 1) / 2
-  max_distance.downto(0) { |distance| print_row(grid_size, distance) }
-  1.upto(max_distance)   { |distance| print_row(grid_size, distance) }
-end
-
-diamond(9)
-diamond(3)
 diamond(1)
-
-#Time: 13 Minutes
+diamond(3)
+diamond(9)

@@ -7,19 +7,19 @@ You may assume that n is always a positive integer.
 =end
 =begin
   Input: 2x Integers (Number, Digits)
-  Output: 
+  Output:
 
   Explicit Rules:
     - You may assume that n is always a positive number
     - You may use the rotate_array method
-  
+
   Data Structure:
     - Strings
     - Arrays
     - Integers
-  
+
   Mental Model:
-    Write a method that takes 2 integers, number and digits, and 
+    Write a method that takes 2 integers, number and digits, and
     returns a new number with the n-th most digits rotated.
 
   Algorithm:
@@ -45,9 +45,9 @@ end
 
 def rotate_rightmost_digits(number, digits)
   num = number
-  places = 10**digits
-  rotated_digits = rotate_array((num % places).to_s)
-  outcome_chars = (num / places).to_s + rotated_digits
+  decimal_places = 10**digits
+  rotated_digits = rotate_array((num % decimal_places).to_s)
+  outcome_chars = (num / decimal_places).to_s + rotated_digits
   p outcome_chars.to_i
 end
 
