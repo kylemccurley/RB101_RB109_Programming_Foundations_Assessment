@@ -23,53 +23,77 @@ Programs will be supplied to your language method via a string passed in as an a
 You should initialize the register to 0.
 =end
 =begin
-Input: String of Integer Operations
-Output: Integer
+  Input: String (Operations)
+  Output: Integer (Output of Operations)
 
-Explicit Requirements:
-  - You should initialize the register to 0.
-  - All programs are valid programs
-  - All operations are integer operations
-  - Do not modify the stack
+  Explicit Rules/Requirements:
+    - You should initialize the register to 0
+    - You may assume all programs are valid
+    - All operations are integer operations
 
-Implicit Requirements:
-  - Need to keep track of the register
+  Implicit Requirements:
+    - Will need to keep track of the register
+    - Possible for nothing to be printed.
 
-Data Structure:
-  - Strings
-  - Arrays
-  - Integers
+  Data Structure:
+    - strings
+    - integers
+    - Arrays
 
-Mental Model:
-  Write a method that takes a string as an argument and returns an Integer
-  based on the stack programs performed.
+  Problem Domain:
+     - What is a stack:
+       - List of values that grows and shrinks dynamically
+     - What is a stack and register programming language:
+       - Language that uses a stack of values
 
-Algorithm:
-  Given an operation string: commands
-    - Initialize an empty array: stack
+  Mental Model:
+    Write a method that takes a string of operations, and performs functions
+    on the stack and register based on the given string-operations. It is possible for
+    nothing to be printed out.
+
+  Algorithm: Given a string of operations: Operations
+    - Initialize a local variable: stack
     - Initialize a local variable: register
-    - Split the commands string using spaces, iterate through each element: word
-      - If the word is 'PUSH'
-        - Append the register to the stack
-      - If the word is 'ADD'
-        - Add the return value of Array#POP
-      - If the word is 'SUB'
-        - Subtract the Array#pop from the register
-      - If the word is 'MULT'
-        - Subtract the Array#pop return value with the register
-      - If the word is 'DIV'
-        - Assign the register to the register divided by the stack pop
-      - If the word is 'MOD'
-        - Reassign the register to the stack.pop called with a modulo operator
-      - If the word is 'POP'
-        - Assign the register to the Array#POP
-      - If the word is 'PRINT"
-        - Print the register local variable using Kernel#puts
-      - Otherwise:
-        - Assign the register to the word converted to an integer
+    - Split operations using spaces (String#split(' ')): Iterate |op|
+      - Case of op:
+        - If 'PUSH'
+          - Push the register onto the stack
+        - If 'ADD':
+          - Add the popped value of stack to register
+        - If 'SUB':
+          - Subtract the popped value of register
+        - If 'MULT'
+          - Multiply the popped value of stack to register
+        - If 'DIV':
+          - Divide the popped value of register to the register.
+        - If 'MOD'
+          - Store the output of the modulo operator to stack
+        - If 'POP':
+          - Then set the register equal to the popped value of stack.
+        - If 'PRINT':
+          - Then print the register value using Kernel#p
+        - Otherwise:
+          - Set the register equal to the operation value:
+            - Converted to an integer.
 =end
 
 def minilang(operations)
+  register = 0
+  stack = []
+  operations.split.each do |op|
+    case op
+      when 'PUSH'  then stack << register
+      when 'ADD'   then register += stack.pop
+      when 'SUB'   then register -= stack.pop
+      when 'MULT'  then register *= stack.pop
+      when 'DIV'   then register /= stack.pop
+      when 'MOD'   then register %= stack.pop
+      when 'POP'   then register = stack.pop
+      when 'PRINT' then p register
+      else
+        register = op.to_i
+    end
+  end
 end
 
 minilang('PRINT')
@@ -102,6 +126,3 @@ minilang('-3 PUSH 5 SUB PRINT')
 # 8
 
 minilang('6 PUSH')
-# (nothing printed; no PRINT commands)
-
-#Time: 14  Minutes
